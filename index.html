@@ -1,15 +1,97 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Embedded Form</title>
+    <title>OTP Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-container {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+        }
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #333333;
+        }
+        .login-container input {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .login-container button:hover {
+            background-color: #0056b3;
+        }
+        iframe {
+            width: 100vw;
+            height: 100vh;
+            border: none;
+        }
+    </style>
 </head>
-<body style="margin:0;padding:0;overflow:hidden;">
-    <iframe src="https://eu.makeforms.co/pcsy7zl" 
-        style="width: 100vw; height: 100vh; max-height: 100%; max-width: 100%;" 
-        frameborder="0">
-    </iframe>
+<body>
+    <div class="login-container" id="login-screen">
+        <h2>Login</h2>
+        <input type="text" id="mobile" placeholder="Enter Mobile Number" maxlength="10">
+        <input type="text" id="otp" placeholder="Enter OTP" maxlength="6" style="display:none;">
+        <button id="send-otp">Send OTP</button>
+    </div><div id="form-screen" style="display:none; height:100vh; width:100vw;">
+    <iframe src="https://eu.makeforms.co/pcsy7zl" allowfullscreen></iframe>
+</div>
+
+<script>
+    const sendOtpBtn = document.getElementById('send-otp');
+    const mobileInput = document.getElementById('mobile');
+    const otpInput = document.getElementById('otp');
+    const loginScreen = document.getElementById('login-screen');
+    const formScreen = document.getElementById('form-screen');
+
+    sendOtpBtn.addEventListener('click', function() {
+        if (otpInput.style.display === 'none') {
+            // First click - after entering mobile number
+            if (mobileInput.value.length === 10) {
+                otpInput.style.display = 'block';
+                sendOtpBtn.textContent = 'Verify OTP';
+            } else {
+                alert('Please enter a valid 10-digit mobile number.');
+            }
+        } else {
+            // Second click - after entering OTP
+            if (otpInput.value === '12345') {
+                loginScreen.style.display = 'none';
+                formScreen.style.display = 'block';
+            } else {
+                alert('Invalid OTP. Please try again.');
+            }
+        }
+    });
+</script>
+
 </body>
 </html>
-
