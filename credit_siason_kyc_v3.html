@@ -1,0 +1,296 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Credit Siason Video KYC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #00bfa6, #2196f3);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      padding-top: 60px;
+      position: relative;
+      min-height: 100vh;
+    }
+    #logo {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      width: 60px;
+      height: auto;
+      z-index: 1000;
+      opacity: 0.8;
+    }
+    h2 {
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    h3 {
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+    p, ul, table {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .card {
+      background: #fff;
+      color: #333;
+      max-width: 420px;
+      margin: 20px auto;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      text-align: left;
+    }
+    .hidden {
+      display: none;
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 30px;
+      font-size: 14px;
+    }
+    button {
+      padding: 12px 30px;
+      background: linear-gradient(135deg, #00bfa6, #2196f3);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      margin-top: 12px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+    button:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background: #00bfa6;
+      color: white;
+      font-weight: 600;
+    }
+    .loader-bar {
+      width: 100%;
+      background: rgba(255,255,255,0.2);
+      border-radius: 30px;
+      overflow: hidden;
+      height: 20px;
+      margin-top: 20px;
+    }
+    .loader-progress {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(135deg, #00bfa6, #2196f3);
+      transition: width 0.1s linear;
+      border-radius: 30px;
+    }
+    small {
+      font-size: 10px;
+      display: block;
+      margin-top: 30px;
+      color: #ccc;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Small transparent logo at the top-left corner -->
+  <img
+    id="logo"
+    src="https://images.seeklogo.com/logo-png/44/2/credit-saison-logo-png_seeklogo-449937.png"
+    alt="Credit Siason Logo"
+  />
+
+  <h2>Video KYC Salaried Personal Loan - C1</h2>
+
+  <div class="card" id="loginPage">
+    <h3>Login</h3>
+    <input type="text" id="phone" placeholder="Enter Phone Number" />
+    <button onclick="sendOTP()">Send OTP</button>
+    <div id="otpSection" class="hidden">
+      <input type="text" id="otp" placeholder="Enter OTP" />
+      <button onclick="verifyOTP()">Verify OTP</button>
+    </div>
+  </div>
+
+  <div class="card hidden" id="termsPage">
+    <h3>Terms & Conditions</h3>
+    <p>Please read the following carefully before proceeding.</p>
+    <ul style="list-style: disc; padding-left: 20px; margin-top: 10px;">
+      <li>Your personal data will be used for KYC and loan verification purposes.</li>
+      <li>By proceeding, you agree to our data policy and compliance requirements.</li>
+      <li>Your loan details are summarized below for your reference.</li>
+    </ul>
+
+    <h4 style="margin-top: 15px; font-weight: 600;">Loan Summary</h4>
+    <table>
+      <tr>
+        <th>Loan Detail</th>
+        <th>Information</th>
+      </tr>
+      <tr>
+        <td>Loan Amount</td>
+        <td>₹1,00,000</td>
+      </tr>
+      <tr>
+        <td>Interest Rate</td>
+        <td>12% p.a.</td>
+      </tr>
+      <tr>
+        <td>Tenure</td>
+        <td>12 months</td>
+      </tr>
+      <tr>
+        <td>Processing Fee</td>
+        <td>₹500</td>
+      </tr>
+      <tr>
+        <td>EMI</td>
+        <td>₹8,885</td>
+      </tr>
+      <tr>
+        <td>Total Repayable</td>
+        <td>₹1,06,620</td>
+      </tr>
+      <tr>
+        <td>Disbursal Date</td>
+        <td>01-06-2025</td>
+      </tr>
+      <tr>
+        <td>Repayment Start Date</td>
+        <td>05-06-2025</td>
+      </tr>
+    </table>
+    <button onclick="startLoading()">Proceed to KYC</button>
+  </div>
+
+  <div class="card hidden" id="loadingPage">
+    <h3>Processing...</h3>
+    <div class="loader-bar">
+      <div class="loader-progress" id="loaderProgress"></div>
+    </div>
+  </div>
+
+  <div class="card hidden" id="kycCompletePage">
+    <h3>Your Video KYC is not required</h3>
+    <p>
+      As necessary details are already present, please proceed to verify via ANUMATI OTP to complete your loan
+      application.
+    </p>
+    <button onclick="showAnumati()">Generate OTP</button>
+
+    <div id="anumatiSection" class="hidden">
+      <input type="text" id="anumatiOTP" placeholder="Enter OTP" />
+      <button onclick="verifyAnumati()">Submit OTP</button>
+    </div>
+  </div>
+
+  <div class="card hidden" id="thankYouPage">
+    <h3>Thank you for verifying your details!</h3>
+    <p>Your loan amount will be credited in your account within 48 hours.</p>
+  </div>
+
+  <small>
+    © Credit Siason™ | All rights reserved. <br />
+    Lexington Towers, Tavarekere Main Rd, Tavarekere, S.G. Palya, Bengaluru, Karnataka 560029
+  </small>
+
+  <script>
+    function sendOTP() {
+      const phone = document.getElementById('phone').value;
+      if (phone.length >= 10) {
+        document.getElementById('otpSection').classList.remove('hidden');
+      } else {
+        alert('Please enter a valid phone number.');
+      }
+    }
+
+    function verifyOTP() {
+      const otp = document.getElementById('otp').value;
+      if (otp.length >= 4) {
+        document.getElementById('loginPage').classList.add('hidden');
+        document.getElementById('termsPage').classList.remove('hidden');
+      } else {
+        alert('Invalid OTP.');
+      }
+    }
+
+    function startLoading() {
+      document.getElementById('termsPage').classList.add('hidden');
+      document.getElementById('loadingPage').classList.remove('hidden');
+
+      let progress = 0;
+      const loader = document.getElementById('loaderProgress');
+      loader.style.width = '0%';
+      const interval = setInterval(() => {
+        progress += 0.5;
+        loader.style.width = progress + '%';
+        if (progress >= 100) {
+          clearInterval(interval);
+          document.getElementById('loadingPage').classList.add('hidden');
+          document.getElementById('kycCompletePage').classList.remove('hidden');
+        }
+      }, 100);
+    }
+
+    function showAnumati() {
+      document.getElementById('anumatiSection').classList.remove('hidden');
+    }
+
+    function verifyAnumati() {
+      const otp = document.getElementById('anumatiOTP').value;
+      if (otp.length >= 4) {
+        document.getElementById('kycCompletePage').classList.add('hidden');
+        document.getElementById('loadingPage').classList.remove('hidden');
+
+        let progress = 0;
+        const loader = document.getElementById('loaderProgress');
+        loader.style.width = '0%';
+        const interval = setInterval(() => {
+          progress += 0.5;
+          loader.style.width = progress + '%';
+          if (progress >= 100) {
+            clearInterval(interval);
+            document.getElementById('loadingPage').classList.add('hidden');
+            document.getElementById('thankYouPage').classList.remove('hidden');
+          }
+        }, 100);
+      } else {
+        alert('Please enter a valid OTP.');
+      }
+    }
+  </script>
+</body>
+</html>
